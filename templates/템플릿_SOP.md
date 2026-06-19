@@ -1,7 +1,8 @@
 ---
 type: sop
-date:
+date: 2026-06-07
 status: active
+owner: 원장
 ---
 
 # SOP: (업무 이름)
