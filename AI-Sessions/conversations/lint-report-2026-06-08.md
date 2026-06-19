@@ -25,5 +25,5 @@ source: CLAUDE.md §9 lint checklist
 
 ## 참고
 
-lint checklist 전 항목 -> [[CLAUDE.md]] §9
+lint checklist 전 항목 -> [[CLAUDE]] §9
 이전 lint -> [[log]] (2026-06-07 항목 참조)
