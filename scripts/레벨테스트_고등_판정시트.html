@@ -1,0 +1,935 @@
+<title>고등 레벨테스트 판정 시트</title>
+<style>
+  :root {
+    --ground: #F5F1EC;
+    --surface: #FFFFFF;
+    --surface-2: #EFE9E2;
+    --ink: #2C2420;
+    --ink-2: #6B5D53;
+    --ink-3: #92847A;
+    --line: #E0D6CB;
+    --line-2: #CFC2B4;
+    --accent: #A9503A;
+    --accent-soft: #F0E0D9;
+    --good: #4C6F52;
+    --good-soft: #E2EAE0;
+    --warn: #9E7226;
+    --warn-soft: #F2E8D4;
+    --shadow: 0 1px 2px rgba(44, 36, 32, .06), 0 8px 24px -16px rgba(44, 36, 32, .3);
+
+    --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+            "Segoe UI", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+            "Malgun Gothic", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #191512;
+      --surface: #221D19;
+      --surface-2: #2B2520;
+      --ink: #EDE5DC;
+      --ink-2: #B0A197;
+      --ink-3: #8B7D73;
+      --line: #362E28;
+      --line-2: #473D35;
+      --accent: #D08063;
+      --accent-soft: #3A2822;
+      --good: #8AAE8C;
+      --good-soft: #253026;
+      --warn: #D4A85E;
+      --warn-soft: #33291A;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #191512;
+    --surface: #221D19;
+    --surface-2: #2B2520;
+    --ink: #EDE5DC;
+    --ink-2: #B0A197;
+    --ink-3: #8B7D73;
+    --line: #362E28;
+    --line-2: #473D35;
+    --accent: #D08063;
+    --accent-soft: #3A2822;
+    --good: #8AAE8C;
+    --good-soft: #253026;
+    --warn: #D4A85E;
+    --warn-soft: #33291A;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  /* ---------- header ---------- */
+
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 650;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+
+  .sub {
+    margin: 6px 0 0;
+    color: var(--ink-2);
+    font-size: 13.5px;
+  }
+
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 13px;
+    border: 1px solid var(--line-2);
+    border-radius: 2px;
+    background: var(--surface);
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .status-chip b { color: var(--warn); font-weight: 600; }
+
+  /* ---------- layout ---------- */
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: 28px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    .rail { position: static !important; }
+  }
+
+  .rail { position: sticky; top: 24px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+  }
+
+  .card + .card { margin-top: 20px; }
+
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .card-head h2 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 650;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .card-head .note { font-size: 12px; color: var(--ink-3); }
+
+  .card-body { padding: 18px 20px; }
+
+  /* ---------- form ---------- */
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-2);
+    letter-spacing: .01em;
+  }
+
+  label .max {
+    font-family: var(--mono);
+    font-weight: 400;
+    color: var(--ink-3);
+    letter-spacing: 0;
+  }
+
+  input, select {
+    font: inherit;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--line-2);
+    border-radius: 2px;
+    padding: 8px 10px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  input[type="number"] {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  input:focus-visible, select:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .band-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    gap: 12px;
+  }
+
+  .band {
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--ground);
+  }
+
+  .band-name { font-size: 12.5px; font-weight: 650; }
+  .band-name span { font-weight: 400; color: var(--ink-3); font-size: 11.5px; }
+
+  .band input { background: var(--surface); }
+
+  .band-state {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+    padding-top: 2px;
+  }
+
+  .band-state.pass { color: var(--good); }
+  .band-state.fail { color: var(--ink-3); }
+
+  .hint {
+    margin: 14px 0 0;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
+  /* ---------- result ---------- */
+
+  .score-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+
+  .score-num {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -.03em;
+  }
+
+  .score-den { font-family: var(--mono); color: var(--ink-3); font-size: 15px; }
+
+  .score-band {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .place-list { display: flex; flex-direction: column; }
+
+  .place {
+    display: grid;
+    grid-template-columns: 74px minmax(0, 1fr);
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .place:last-child { border-bottom: 0; }
+
+  .place-axis {
+    font-size: 11.5px;
+    font-weight: 650;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding-top: 2px;
+  }
+
+  .place-main { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+  .place-why { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; }
+
+  .place-why b {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .flag {
+    margin: 0;
+    padding: 14px 20px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .flag-mark {
+    flex: none;
+    width: 3px;
+    align-self: stretch;
+    border-radius: 2px;
+    background: var(--line-2);
+  }
+
+  .flag.is-warn { background: var(--warn-soft); }
+  .flag.is-warn .flag-mark { background: var(--warn); }
+  .flag.is-good .flag-mark { background: var(--good); }
+
+  .flag-title { font-size: 12.5px; font-weight: 650; }
+  .flag.is-warn .flag-title { color: var(--warn); }
+  .flag.is-good .flag-title { color: var(--good); }
+  .flag-body { font-size: 12.5px; color: var(--ink-2); margin-top: 2px; }
+
+  /* ---------- 결과지 ---------- */
+
+  .sheet-body { padding: 0; }
+
+  .sheet-block {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sheet-block:last-child { border-bottom: 0; }
+
+  .sheet-label {
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 7px;
+  }
+
+  .sheet-block p { margin: 0; font-size: 13.5px; line-height: 1.65; }
+  .sheet-block p + p { margin-top: 5px; }
+
+  .sheet-block ul { margin: 0; padding-left: 17px; font-size: 13.5px; line-height: 1.65; }
+
+  table.mini {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  table.mini td {
+    padding: 4px 0;
+    border-bottom: 1px dotted var(--line);
+  }
+
+  table.mini tr:last-child td { border-bottom: 0; }
+
+  table.mini td:first-child { color: var(--ink-2); }
+
+  table.mini td:last-child {
+    text-align: right;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  button {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 2px;
+    border: 1px solid var(--line-2);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #FFF;
+  }
+
+  :root[data-theme="dark"] button.primary { color: #201914; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) button.primary { color: #201914; }
+  }
+
+  button:hover { border-color: var(--accent); }
+
+  .toast {
+    font-size: 12.5px;
+    color: var(--good);
+    align-self: center;
+  }
+
+  footer {
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--ink-3);
+    line-height: 1.7;
+  }
+
+  footer b { color: var(--ink-2); font-weight: 600; }
+
+  @media print {
+    .noprint { display: none !important; }
+    body { background: #FFF; color: #000; }
+    .wrap { padding: 0; max-width: none; }
+    .grid { grid-template-columns: 1fr; }
+    .card { box-shadow: none; break-inside: avoid; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <p class="eyebrow">에이닷 영어학원 · 고등 (수능용)</p>
+      <h1>고등 레벨테스트 판정 시트</h1>
+      <p class="sub">점수를 넣으면 축별 배치가 확정됩니다. 총점은 상담용 요약일 뿐 배치 근거가 아닙니다.</p>
+    </div>
+    <div class="status-chip"><b>draft</b> 파일럿 전 · 현행 운영 기준 아님</div>
+  </header>
+
+  <div class="grid">
+    <!-- ============ 입력 ============ -->
+    <div class="noprint">
+      <section class="card">
+        <div class="card-head">
+          <h2>응시 정보</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="field">
+              <label for="f-name">학생 이름</label>
+              <input id="f-name" type="text" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="f-school">학교</label>
+              <input id="f-school" type="text" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="f-grade">학년</label>
+              <select id="f-grade">
+                <option>고1</option>
+                <option>고2</option>
+                <option>고3</option>
+                <option>예비고1</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-date">응시일</label>
+              <input id="f-date" type="date">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>어휘 30문항 — 구간별 정답 수</h2>
+          <span class="note">구간 정답률 70% 이상 = 통과</span>
+        </div>
+        <div class="card-body">
+          <div class="band-grid">
+            <div class="band">
+              <div class="band-name">초급 <span>중학 · 5문항</span></div>
+              <input id="v-1" type="number" min="0" max="5" step="1" value="0">
+              <div class="band-state fail" id="s-1">미통과</div>
+            </div>
+            <div class="band">
+              <div class="band-name">중급 <span>고1·2 · 5문항</span></div>
+              <input id="v-2" type="number" min="0" max="5" step="1" value="0">
+              <div class="band-state fail" id="s-2">미통과</div>
+            </div>
+            <div class="band">
+              <div class="band-name">준고급 <span>고3 · 15문항</span></div>
+              <input id="v-3" type="number" min="0" max="15" step="1" value="0">
+              <div class="band-state fail" id="s-3">미통과</div>
+            </div>
+            <div class="band">
+              <div class="band-name">고급 <span>5문항</span></div>
+              <input id="v-4" type="number" min="0" max="5" step="1" value="0">
+              <div class="band-state fail" id="s-4">미통과</div>
+            </div>
+          </div>
+          <p class="hint">도달 구간 = 아래에서부터 <b>연속으로</b> 통과한 마지막 구간. 찍어서 맞힌 상위 구간은 도달로 치지 않습니다. 초급을 통과하지 못하면 초급 정답률로 중학 코스를 가릅니다.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>나머지 영역</h2>
+          <span class="note">듣기 10 · 구조 30 · 독해 25 · 언어력 5</span>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="field">
+              <label for="f-listen">듣기 <span class="max">/10</span></label>
+              <input id="f-listen" type="number" min="0" max="10" step="2" value="0">
+            </div>
+            <div class="field">
+              <label for="f-struct">구조 <span class="max">/30</span></label>
+              <input id="f-struct" type="number" min="0" max="30" step="2" value="0">
+            </div>
+            <div class="field">
+              <label for="f-read">독해 <span class="max">/25</span></label>
+              <input id="f-read" type="number" min="0" max="25" step="1" value="0">
+            </div>
+            <div class="field">
+              <label for="f-lang">언어력 <span class="max">/5</span></label>
+              <input id="f-lang" type="number" min="0" max="5" step="1" value="0">
+            </div>
+            <div class="field">
+              <label for="f-time">독해 소요시간 <span class="max">분</span></label>
+              <input id="f-time" type="number" min="0" max="60" step="1" value="0">
+            </div>
+          </div>
+          <p class="hint">독해 배정 시간은 18분입니다. 초과하면 실력이 아니라 시간이 병목일 수 있어 추적 항목으로 잡습니다.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>학교 레이어</h2>
+          <span class="note">배치를 바꾸지 않고 상담·첫 8주만 바꿈</span>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="field">
+              <label for="f-naesin">직전 내신 등급</label>
+              <select id="f-naesin">
+                <option value="">없음 · 미확인</option>
+                <option value="1">1등급</option>
+                <option value="2">2등급</option>
+                <option value="3">3등급</option>
+                <option value="4">4등급</option>
+                <option value="5">5등급</option>
+                <option value="6">6등급</option>
+                <option value="7">7등급</option>
+                <option value="8">8등급</option>
+                <option value="9">9등급</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-target">목표 등급</label>
+              <select id="f-target">
+                <option value="">미정</option>
+                <option value="100">1등급 · 100점</option>
+                <option value="2">2등급</option>
+                <option value="3">3등급 이상</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-type">학교 시험 성격</label>
+              <select id="f-type">
+                <option value="">프로파일 미확인</option>
+                <option value="memo">암기형 (암기 커버 높음)</option>
+                <option value="base">기본기형 (외부지문 높음)</option>
+              </select>
+            </div>
+          </div>
+          <p class="hint">시험 성격은 학교별 출제 프로파일에서 확인합니다. 프로파일이 없으면 3개년 기출 분석을 백로그로 걸고 이 칸은 비워 둡니다.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ 판정 ============ -->
+    <div class="rail">
+      <section class="card">
+        <div class="score-head">
+          <span class="score-num" id="r-total">0</span>
+          <span class="score-den">/ 100</span>
+          <span class="score-band" id="r-band">하</span>
+        </div>
+
+        <div class="place-list">
+          <div class="place">
+            <div class="place-axis">듣기</div>
+            <div>
+              <div class="place-main" id="r-listen">고듣끝 유형편</div>
+              <div class="place-why" id="r-listen-why">듣기 <b>0</b>점 — 하(0~4)</div>
+            </div>
+          </div>
+          <div class="place">
+            <div class="place-axis">어휘</div>
+            <div>
+              <div class="place-main" id="r-vocab">중학 60일</div>
+              <div class="place-why" id="r-vocab-why">도달 구간 없음 · 초급 정답률 <b>0%</b></div>
+            </div>
+          </div>
+          <div class="place">
+            <div class="place-axis">독해</div>
+            <div>
+              <div class="place-main" id="r-read">Start-Up</div>
+              <div class="place-why" id="r-read-why">구조+독해+언어 <b>0</b> / 60</div>
+            </div>
+          </div>
+          <div class="place">
+            <div class="place-axis">언어력</div>
+            <div>
+              <div class="place-main" id="r-lang">국어 언어력 병행 권고</div>
+              <div class="place-why" id="r-lang-why">언어력 <b>0</b>점 — 하(0~3)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flag" id="r-flag">
+          <div class="flag-mark"></div>
+          <div>
+            <div class="flag-title" id="r-flag-title">학교 레이어 미입력</div>
+            <div class="flag-body" id="r-flag-body">직전 내신 등급을 넣으면 레테와의 갭을 확인합니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>결과지</h2>
+          <span class="note">상담용</span>
+        </div>
+        <div class="sheet-body">
+          <div class="sheet-block">
+            <p class="sheet-label">1 · 영역별 결과</p>
+            <table class="mini">
+              <tbody>
+                <tr><td>듣기</td><td id="t-listen">0 / 10</td></tr>
+                <tr><td>어휘</td><td id="t-vocab">0 / 30</td></tr>
+                <tr><td>구조</td><td id="t-struct">0 / 30</td></tr>
+                <tr><td>독해</td><td id="t-read">0 / 25</td></tr>
+                <tr><td>언어력</td><td id="t-lang">0 / 5</td></tr>
+                <tr><td>어휘 도달 구간</td><td id="t-reach">-</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sheet-block">
+            <p class="sheet-label">2 · 배치 결과</p>
+            <ul id="t-place"></ul>
+          </div>
+          <div class="sheet-block">
+            <p class="sheet-label">3 · 학교 시험 성격</p>
+            <p id="t-school">프로파일 미확인 — 3개년 기출 분석 후 보완합니다.</p>
+          </div>
+          <div class="sheet-block">
+            <p class="sheet-label">4 · 첫 8주 계획</p>
+            <ul id="t-plan"></ul>
+          </div>
+          <div class="sheet-block">
+            <p class="sheet-label">5 · 재측정 시점</p>
+            <p id="t-recheck">첫 내신 성적이 나오면 배치를 다시 맞춥니다.</p>
+          </div>
+        </div>
+        <div class="actions noprint">
+          <button class="primary" id="btn-copy">결과지 복사</button>
+          <button id="btn-print">인쇄</button>
+          <span class="toast" id="toast"></span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <b>판정 근거</b> — 레벨테스트 v2 설계안 §5(축별 독립 배치) · §6(학교 레이어). 듣기·독해·언어력 컷은 현행 레벨테스트 기준 그대로이고, 어휘 도달 구간 판정만 v2 신설입니다.<br>
+    <b>주의</b> — 컷은 파일럿 실측 전 제안값입니다. 결과지 문구에 성적 보장·타 학생 비교·학생 비하 표현을 넣지 않습니다.
+  </footer>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const num = (id) => {
+    const v = parseInt($(id).value, 10);
+    return Number.isFinite(v) && v > 0 ? v : 0;
+  };
+
+  const VOCAB = [
+    { id: "1", max: 5,  need: 4,  name: "초급" },
+    { id: "2", max: 5,  need: 4,  name: "중급" },
+    { id: "3", max: 15, need: 11, name: "준고급" },
+    { id: "4", max: 5,  need: 4,  name: "고급" }
+  ];
+
+  const VOCAB_PLACE = {
+    "고급":   { book: "어휘끝 어원편",  why: "고급 구간까지 도달" },
+    "준고급": { book: "고단끝 2개월",   why: "준고급 도달 · 고급 미통과" },
+    "중급":   { book: "고단끝 3개월",   why: "중급 도달 · 준고급 미통과" },
+    "초급":   { book: "고단끝 6개월",   why: "초급 도달 · 중급 미통과" }
+  };
+
+  function render() {
+    // --- 어휘 구간 ---
+    const hit = VOCAB.map((b) => Math.min(num("v-" + b.id), b.max));
+    const pass = VOCAB.map((b, i) => hit[i] >= b.need);
+    VOCAB.forEach((b, i) => {
+      const el = $("s-" + b.id);
+      el.textContent = pass[i] ? "통과 " + hit[i] + "/" + b.max : "미통과 " + hit[i] + "/" + b.max;
+      el.className = "band-state " + (pass[i] ? "pass" : "fail");
+    });
+
+    let reach = null;
+    for (let i = 0; i < VOCAB.length; i++) {
+      if (!pass[i]) break;
+      reach = VOCAB[i].name;
+    }
+
+    const vocabTotal = hit.reduce((a, b) => a + b, 0);
+    const baseRate = Math.round((hit[0] / VOCAB[0].max) * 100);
+
+    let vocabBook, vocabWhy;
+    if (reach) {
+      vocabBook = VOCAB_PLACE[reach].book;
+      vocabWhy = "도달 구간 <b>" + reach + "</b> · " + VOCAB_PLACE[reach].why;
+    } else if (baseRate >= 40) {
+      vocabBook = "중학 30일";
+      vocabWhy = "도달 구간 없음 · 초급 정답률 <b>" + baseRate + "%</b> (40~69%)";
+    } else {
+      vocabBook = "중학 60일";
+      vocabWhy = "도달 구간 없음 · 초급 정답률 <b>" + baseRate + "%</b> (40% 미만)";
+    }
+
+    // --- 나머지 영역 ---
+    const listen = Math.min(num("f-listen"), 10);
+    const struct = Math.min(num("f-struct"), 30);
+    const read = Math.min(num("f-read"), 25);
+    const lang = Math.min(num("f-lang"), 5);
+    const mins = num("f-time");
+
+    const total = listen + vocabTotal + struct + read + lang;
+    const readAxis = struct + read + lang;
+
+    const listenBook = listen >= 6 ? "고듣끝 실전편" : "고듣끝 유형편";
+    const listenWhy = "듣기 <b>" + listen + "</b>점 — " + (listen >= 6 ? "상·중(6~10)" : "하(0~4)");
+
+    let readBook;
+    if (readAxis >= 51) readBook = "Intermediate";
+    else if (readAxis >= 26) readBook = "Basic";
+    else if (readAxis >= 11) readBook = "Build-Up";
+    else readBook = "Start-Up";
+
+    const langOk = lang >= 4;
+    const langMain = langOk ? "정상 — 별도 조치 없음" : "국어 언어력 병행 권고";
+    const langWhy = "언어력 <b>" + lang + "</b>점 — " + (langOk ? "상(4~5)" : "하(0~3)");
+
+    // --- 총점 밴드 ---
+    let band;
+    if (total >= 71) band = "상";
+    else if (total >= 41) band = "중";
+    else band = "하";
+
+    // --- 화면 반영 ---
+    $("r-total").textContent = total;
+    $("r-band").textContent = band;
+    $("r-listen").textContent = listenBook;
+    $("r-listen-why").innerHTML = listenWhy;
+    $("r-vocab").textContent = vocabBook;
+    $("r-vocab-why").innerHTML = vocabWhy;
+    $("r-read").textContent = readBook;
+    $("r-read-why").innerHTML = "구조+독해+언어 <b>" + readAxis + "</b> / 60";
+    $("r-lang").textContent = langMain;
+    $("r-lang-why").innerHTML = langWhy;
+
+    // --- 갭 플래그 ---
+    const naesin = $("f-naesin").value;
+    const flag = $("r-flag");
+    let cls = "flag", title, body;
+
+    if (!naesin) {
+      title = "학교 레이어 미입력";
+      body = "직전 내신 등급을 넣으면 레테와의 갭을 확인합니다. 성적이 없는 신규생은 이 단계를 건너뜁니다.";
+    } else {
+      const n = parseInt(naesin, 10);
+      const nBand = n <= 2 ? "상" : (n <= 4 ? "중" : "하");
+      if (band === "상" && nBand === "하") {
+        cls = "flag is-warn";
+        title = "갭 플래그 — 레테 상 / 내신 하";
+        body = "실력 대비 학교 대비가 부족한 쪽입니다. 교재를 낮추지 않습니다. 내신 전환 시점을 앞당기고 암기 루틴을 먼저 잡습니다.";
+      } else if (band === "하" && nBand === "상") {
+        cls = "flag is-warn";
+        title = "갭 플래그 — 레테 하 / 내신 상";
+        body = "암기로 점수가 나오고 있을 가능성이 큽니다. 배치는 레테대로 가되, 학년이 올라가면 암기만으로 막히는 지점이 온다는 점을 상담에서 미리 말합니다.";
+      } else {
+        cls = "flag is-good";
+        title = "갭 없음 — 레테 " + band + " / 내신 " + n + "등급";
+        body = "레테와 학교 성적이 같은 방향을 가리킵니다. 배치대로 진행합니다.";
+      }
+    }
+    flag.className = cls;
+    $("r-flag-title").textContent = title;
+    $("r-flag-body").textContent = body;
+
+    // --- 결과지 ---
+    $("t-listen").textContent = listen + " / 10";
+    $("t-vocab").textContent = vocabTotal + " / 30";
+    $("t-struct").textContent = struct + " / 30";
+    $("t-read").textContent = read + " / 25";
+    $("t-lang").textContent = lang + " / 5";
+    $("t-reach").textContent = reach ? reach : "초급 미도달";
+
+    const places = [
+      "듣기 — " + listenBook,
+      "단어 — " + vocabBook,
+      "독해 — " + readBook + " 커리큘럼"
+    ];
+    if (!langOk) places.push("언어력 — 국어 언어력 병행 권고");
+    if (mins > 18) places.push("독해 시간 — 배정 18분 대비 " + mins + "분, 시간관리 추적 항목");
+    $("t-place").innerHTML = places.map((t) => "<li>" + t + "</li>").join("");
+
+    const type = $("f-type").value;
+    const target = $("f-target").value;
+    const school = $("f-school").value.trim();
+    let schoolText;
+    if (!type) {
+      schoolText = "프로파일 미확인 — 3개년 기출 분석 후 보완합니다.";
+    } else if (type === "memo") {
+      schoolText = (school || "해당 학교") + " 시험은 암기 커버 비중이 높습니다. " +
+        (target === "100"
+          ? "목표가 1등급·100점이면 암기만으로는 변별 문항에서 막히므로 기본기를 함께 올립니다."
+          : "암기 집중으로 목표에 도달할 수 있는 구간입니다.");
+    } else {
+      schoolText = (school || "해당 학교") + " 시험은 외부지문 비중이 높습니다. " +
+        (target === "100"
+          ? "암기 투자는 효율이 낮습니다. 기본기에 집중합니다."
+          : "암기만으로는 천장이 낮아 기본기 학습이 함께 필요합니다.");
+    }
+    $("t-school").textContent = schoolText;
+
+    const plan = [
+      "정규 주간 표준 — 단어 5강(약 165개) + 강의 5강",
+      "단어 — " + vocabBook + " 진행, 30개 단위 테스트(27개 이상 통과)",
+      "독해 — " + readBook + " 커리큘럼 진입"
+    ];
+    if (!langOk) plan.push("언어력이 낮아 지문 이해 자체를 먼저 점검합니다.");
+    if (mins > 18) plan.push("독해는 매 회 시간을 기록해 시간관리를 함께 훈련합니다.");
+    if (naesin && band === "상" && parseInt(naesin, 10) >= 5) {
+      plan.push("내신 전환을 기본 5주 전보다 앞당길지 검토합니다.");
+    }
+    $("t-plan").innerHTML = plan.map((t) => "<li>" + t + "</li>").join("");
+
+    $("t-recheck").textContent =
+      "첫 내신 성적이 나오면 배치를 다시 맞춥니다. 그 사이 매 강의 복습 테스트와 주 1회 누적 테스트로 진행 상태를 확인합니다.";
+  }
+
+  function sheetText() {
+    const name = $("f-name").value.trim() || "(이름)";
+    const school = $("f-school").value.trim() || "(학교)";
+    const grade = $("f-grade").value;
+    const date = $("f-date").value || "(응시일)";
+    const li = (id) => Array.from($(id).querySelectorAll("li")).map((n) => "- " + n.textContent).join("\n");
+    const rows = Array.from(document.querySelectorAll("table.mini tr"))
+      .map((tr) => "- " + tr.cells[0].textContent + ": " + tr.cells[1].textContent).join("\n");
+
+    return [
+      "[에이닷 영어학원] 고등 레벨테스트 결과",
+      name + " · " + school + " " + grade + " · " + date,
+      "",
+      "1. 영역별 결과",
+      rows,
+      "",
+      "2. 배치 결과",
+      li("t-place"),
+      "",
+      "3. 학교 시험 성격",
+      $("t-school").textContent,
+      "",
+      "4. 첫 8주 계획",
+      li("t-plan"),
+      "",
+      "5. 재측정 시점",
+      $("t-recheck").textContent
+    ].join("\n");
+  }
+
+  document.addEventListener("input", render);
+  document.addEventListener("change", render);
+
+  $("btn-print").addEventListener("click", () => window.print());
+
+  $("btn-copy").addEventListener("click", async () => {
+    const toast = $("toast");
+    try {
+      await navigator.clipboard.writeText(sheetText());
+      toast.textContent = "복사했습니다";
+    } catch (e) {
+      toast.textContent = "복사가 막혀 있습니다 — 인쇄를 쓰세요";
+    }
+    setTimeout(() => { toast.textContent = ""; }, 2400);
+  });
+
+  render();
+</script>
