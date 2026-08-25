@@ -1,0 +1,102 @@
+# ─────────────────────────────────────────────────────────────
+# 관제 저장소 .gitignore  —  화이트리스트 방식
+#
+# 왜 화이트리스트인가:
+#   errors/지점_복제할때_데이터가_따라간다 의 교훈 —
+#   "이름이 설정 같아도 안에 학생 이름이 있으면 데이터다."
+#   블랙리스트(위험한 것만 나열)는 반드시 하나를 놓친다.
+#   그래서 전부 막고, 코드만 하나씩 연다.
+#
+# 새 파일을 올리려면: 이 파일에 !규칙을 직접 추가해야 한다.
+#   그 순간 "이건 코드인가 데이터인가"를 한 번 생각하게 된다. 그게 목적이다.
+# ─────────────────────────────────────────────────────────────
+
+# 1) 전부 무시
+*
+
+# 2) 디렉터리는 탐색 허용 (안 열면 하위 파일 규칙이 안 먹는다)
+!*/
+
+# 3) 코드만 연다
+!*.py
+!*.html
+!*.css
+!*.sh
+!*.md
+!*.toml
+!*.yml
+!*.yaml
+!Dockerfile
+!requirements.txt
+!.gitignore
+
+# 4) .js 는 코드지만 관제엔 데이터도 .js 로 있다 → 열고 나서 다시 막는다
+!*.js
+roster.js
+roster_*.js
+wordbooks.js
+words/
+*_roster*.js
+
+# ─────────────────────────────────────────────────────────────
+# 5) 확장자가 열려 있어도 절대 올리면 안 되는 것 (이중 방어)
+#    위 화이트리스트를 누가 느슨하게 바꿔도 여기서 막힌다.
+# ─────────────────────────────────────────────────────────────
+
+# 비밀번호 · 토큰 · 키
+_관제_계정_비밀번호.txt
+_crm_passwd.txt
+_crm_secrets.json
+_accounts.json
+token.json
+*token*.json
+*.key
+*.pem
+.env
+.env.*
+*fernet*
+*secret*
+
+# 개인정보 (학생 · 학부모 · 직원)
+_contacts.json
+_contact_log.jsonl
+profiles.json
+_staff_att*.json
+_shifts_*.json
+_kiosk*.json
+_seats*.json
+
+# 설정처럼 생겼지만 내용은 데이터 (2026-08-20 대구달서점 사고)
+ux.json
+books.json
+textbooks.json
+
+# 지점 종속값 (시트 주소 · 토큰 포함)
+branch.json
+
+# 시험 · 성적 데이터
+scoring_keys.json
+_grade_sheet_id.txt
+_grade_exam_meta.json
+saved_sets/
+naesin/
+exams.json
+
+# 백업 · 로그 · 대용량
+*.bak
+*.bak_*
+*.log
+backup/
+_backup*/
+*.tar.gz
+*.zip
+*.mp3
+*.m4a
+*.wav
+
+# 잡동사니
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+node_modules/
